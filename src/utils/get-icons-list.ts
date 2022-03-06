@@ -1,0 +1,36 @@
+import { IconType } from 'react-icons'
+import { 
+  MdBook,
+  MdChangeHistory,
+  MdEco,
+  MdGrade,
+  MdNightlightRound,
+  MdPolymer,
+  MdSettingsCell,
+  MdTurnedIn,
+  MdAlternateEmail,
+  MdMail,
+  MdShield,
+  MdWidgets,
+  MdAttachMoney,
+  MdWorkspacesFilled,
+  MdLocalGroceryStore,
+} from 'react-icons/md'
+
+export const iconList: IconType[] = [
+  MdBook,
+  MdChangeHistory,
+  MdEco,
+  MdGrade,
+  MdNightlightRound,
+  MdPolymer,
+  MdSettingsCell,
+  MdTurnedIn,
+  MdAlternateEmail,
+  MdMail,
+  MdShield,
+  MdWidgets,
+  MdAttachMoney,
+  MdWorkspacesFilled,
+  MdLocalGroceryStore,
+]

@@ -1,11 +1,11 @@
 import { GlobalStyles } from "./Global-styles"
-import { Home } from "./pages/Home"
+import { TodoBook } from "./pages/Todo-book"
 
 export const App = () => {
   return (
     <div>
       <GlobalStyles />
-      <Home />
+      <TodoBook />
     </div>
   )
 }

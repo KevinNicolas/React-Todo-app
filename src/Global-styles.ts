@@ -11,6 +11,7 @@ export const GlobalStyles = createGlobalStyle`
 
     --background-color: #424342;
     --button-background: #C4C4C4;
+    --button-background-2: whitesmoke;
   }
 
   * {
@@ -19,6 +20,7 @@ export const GlobalStyles = createGlobalStyle`
     padding: 0;
     text-decoration: none;
     outline: none;
+    border: none;
   }
 
   .page-container {
@@ -36,4 +38,6 @@ export const GlobalStyles = createGlobalStyle`
     justify-content: center;
     align-items: center;
   }
+
+  button { cursor: pointer; }
 `
