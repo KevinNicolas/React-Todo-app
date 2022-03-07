@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import { IconsDropdown } from "./Icons-dropdown"
 import { MdChevronLeft } from 'react-icons/md'
+import { PriorityDropdown } from "./Priority-dropdown"
 
 const HeaderStyles = styled.div`
   .header-container {
@@ -28,6 +29,21 @@ const HeaderStyles = styled.div`
   .row {
     display: flex;
     flex-flow: row;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  input {
+    padding: .5rem 1rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: var(--text-color-dark);
+  }
+
+  .title-container {
+    width: 50%;
+
+    input { width: 100%; }
   }
 `
 
@@ -42,6 +58,10 @@ export const Header = () => {
         </div>
         <div className="row">
           <IconsDropdown />
+          <div className="title-container">
+            <input className="title-input" type="text" placeholder="Title..." />
+          </div>
+          <PriorityDropdown />
         </div>
       </div>
     </HeaderStyles>
