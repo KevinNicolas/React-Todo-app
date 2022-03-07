@@ -12,6 +12,10 @@ export const GlobalStyles = createGlobalStyle`
     --background-color: #424342;
     --button-background: #C4C4C4;
     --button-background-2: whitesmoke;
+
+    --color-alert: #f00;
+    --color-warn: #F76E11;
+    --color-success: #357C3C;
   }
 
   * {
@@ -40,4 +44,8 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   button { cursor: pointer; }
+
+  .alert { color: var(--color-alert) }
+  .warn { color: var(--color-warn) }
+  .success { color: var(--color-success) }
 `
