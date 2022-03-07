@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { IconType } from "react-icons"
 import styled from "styled-components"
+import { Dropdown, DropdownChildFunctions } from "../../../components/Dropdown";
 import { iconList } from "../../../utils/get-icons-list"
 
 interface StyleProps {
-  showIconList: boolean;
   iconsQuantity: number;
 }
 
@@ -14,51 +14,51 @@ const IconsDropdownStyles = styled.div<StyleProps>`
     padding: .2rem;
     border-radius: 5px;
   }
-  
-  .icon-list-container {
-    position: relative;
-    transition: opacity 300ms ease-in-out;
-    opacity: ${({ showIconList }) => showIconList ? 1 : 0};
-    z-index: ${({ showIconList }) => showIconList ? 1 : -1};
 
-    .icon-list-wrapper {
-      background: var(--button-background-2);
-      position: absolute;
-      overflow: hidden;
-      display: flex;
-      flex-flow: row wrap;
-      align-items: center;
-      min-width: ${({ iconsQuantity }) => `${.9 * iconsQuantity}rem`};
-      top: .1rem;
-      left: .5rem;
-      border-radius: 5px;
+  .icon-list-wrapper {
+    background: var(--button-background-2);
+    overflow: hidden;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    max-width: ${({ iconsQuantity }) => `${.9 * iconsQuantity}rem`};
+    border-radius: 5px;
 
-      .icon-container {
-        background: transparent;
-        transition: background 300ms ease-in-out;
-        padding: .5rem;
-        &:hover { background: var(--primary-hover) }
-      }
+    .icon-container {
+      background: transparent;
+      transition: background 300ms ease-in-out;
+      padding: .5rem;
+      &:hover { background: var(--primary-hover) }
     }
   }
 `
 
 export const IconsDropdown = () => {
-  const [showIconList, setshowIconList] = useState(false)
   const [selectedIcon, setselectedIcon] = useState<JSX.Element>(iconList[0]({ size: 24 }))
+  const dropdownReference = useRef<DropdownChildFunctions>({ showContent: (value: boolean) => {} })
 
   const selectIcon = ({ icon }: { icon: IconType }) => {
     setselectedIcon(icon({ size: 24 }))
-    setshowIconList(false)
+    dropdownReference.current.showContent(false)
   }
 
   return (
-    <IconsDropdownStyles showIconList={showIconList} iconsQuantity={iconList.length}>
-      <div className="icons-dropdown-container">
-        <button className="icons-button" onClick={() => { setshowIconList(!showIconList) }}>
-          { selectedIcon }
-        </button>
-        <div className="icon-list-container">
+    <IconsDropdownStyles iconsQuantity={iconList.length}>
+      <Dropdown
+        key={'IconsDropdown'}
+        childFunctions={dropdownReference}
+
+        Button={(
+          <button className="icons-button">
+            { selectedIcon }
+          </button>
+        )}
+
+        contentPosition={({
+          top: '.1rem',
+          left: '.5rem'
+        })}
+        Content={(
           <div className="icon-list-wrapper">
             {
               iconList.map((Icon: IconType) => (
@@ -72,8 +72,8 @@ export const IconsDropdown = () => {
               ))
             }
           </div>
-        </div>
-      </div>
+        )}
+      />
     </IconsDropdownStyles>
   )
 }

@@ -1,8 +1,8 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { IconType } from "react-icons/lib"
-import { MdOutlineArrowForward, MdOutlineArrowUpward, MdOutlineRemove, MdOutlineSouth } from "react-icons/md"
+import { MdOutlineArrowForward, MdOutlineArrowUpward, MdOutlineSouth } from "react-icons/md"
 import styled from "styled-components"
-import { Dropdown } from "../../../components/Dropdown"
+import { Dropdown, DropdownChildFunctions } from "../../../components/Dropdown"
 
 const Styles = styled.div`
   .pDropdown-content, .pDropdown-button {
@@ -52,12 +52,21 @@ export const PriorityDropdown = () => {
     { icon: MdOutlineArrowForward, label: 'Medium', colorClass: 'warn' },
     { icon: MdOutlineSouth, label: 'Low', colorClass: 'success' }
   ]
-  
+
   const [selectedPriority, setselectedPriority] = useState<PriorityItem>(priorityList[1])
+  const dropdownReference = useRef<DropdownChildFunctions>({ showContent: (value: boolean) => {} })
+
+  const setItemSelected = (priority: PriorityItem) => {
+    setselectedPriority(priority)
+    dropdownReference.current.showContent(false)
+  }
 
   return (
     <Styles>
       <Dropdown
+        key={'PriorityDropdown'}
+        childFunctions={dropdownReference}
+
         Button={(<div className={`pDropdown-button ${selectedPriority.colorClass}`}>
           {selectedPriority.icon({ size: ICONSIZE })}
           {selectedPriority.label}
@@ -70,7 +79,7 @@ export const PriorityDropdown = () => {
         Content={(<div className="pDropdown-content">
           {
             priorityList.map(({ label, icon, colorClass }: PriorityItem) => (
-              <div className={`item-container ${colorClass}`} onClick={() => { setselectedPriority({ label, icon, colorClass }) }}>
+              <div key={label} className={`item-container ${colorClass}`} onClick={() => { setItemSelected({ label, icon, colorClass }) }}>
                 { icon({ size: ICONSIZE }) }
                 { label }
               </div>
