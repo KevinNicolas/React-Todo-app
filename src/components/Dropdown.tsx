@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { MutableRefObject, useEffect, useState } from "react"
 import styled from "styled-components"
 
 interface ContentPosition {
@@ -26,15 +26,23 @@ const DropdownStyles = styled.div<StylesProps>`
   }
 `
 
+export interface DropdownChildFunctions {
+  showContent: (value: boolean) => void
+}
 interface Props {
   Button: JSX.Element
   Content: JSX.Element
   contentPosition?: ContentPosition
+  childFunctions?: MutableRefObject<DropdownChildFunctions>
 }
 
-export const Dropdown = ({ Button, Content, contentPosition = { left: '0', top: '0' } }: Props) => {
+export const Dropdown = ({ Button, Content, contentPosition = { left: '0', top: '0' }, childFunctions }: Props) => {
   const [showContent, setshowContent] = useState(false)
   
+  useEffect(() => {
+    if (childFunctions) childFunctions.current.showContent = (value: boolean) => { setshowContent(value) }
+  }, [])
+
   return (
     <DropdownStyles showContent={showContent} contentPosition={contentPosition}>
       <div className="dropdown-container">
