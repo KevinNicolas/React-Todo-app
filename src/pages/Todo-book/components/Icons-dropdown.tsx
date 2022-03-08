@@ -34,11 +34,11 @@ const IconsDropdownStyles = styled.div<StyleProps>`
 `
 
 export const IconsDropdown = () => {
-  const [selectedIcon, setselectedIcon] = useState<JSX.Element>(iconList[0]({ size: 24 }))
+  const [selectedIcon, setselectedIcon] = useState<JSX.Element>(iconList[0]({ size: 30 }))
   const dropdownReference = useRef<DropdownChildFunctions>({ showContent: (value: boolean) => {} })
 
   const selectIcon = ({ icon }: { icon: IconType }) => {
-    setselectedIcon(icon({ size: 24 }))
+    setselectedIcon(icon({ size: 30 }))
     dropdownReference.current.showContent(false)
   }
 
